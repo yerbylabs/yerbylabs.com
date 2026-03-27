@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IronBeak: The Avian Chronicles</title>
+  <meta name="description" content="Step into the ancient tradition of the field naturalist. Discover birds, fill your journal, and earn your place among the great ornithologists." />
+  <base href="" />
+  <link rel="icon" href="images/icon.png" type="image/png" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --dark-green: #0d1f0d;
+      --mid-green: #1a3a1a;
+      --card-brown: #2a1a0e;
+      --gold: #c8a84b;
+      --gold-light: #e8c96a;
+      --cream: #f5ead8;
+      --text-muted: #a89070;
+      --rarity-common: #8baf6e;
+      --rarity-uncommon: #c8a84b;
+      --rarity-rare: #c0622f;
+      --rarity-legendary: #b07fd4;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--dark-green);
+      color: var(--cream);
+      font-family: Georgia, 'Times New Roman', serif;
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(13, 31, 13, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(200, 168, 75, 0.3);
+      padding: 0 24px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-size: 1.1rem;
+      font-weight: bold;
+      letter-spacing: 0.15em;
+      color: var(--gold);
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--gold); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 100px 24px 60px;
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(200, 168, 75, 0.12) 0%, transparent 60%),
+        var(--dark-green);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c8a84b' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      opacity: 0.5;
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(200, 168, 75, 0.15);
+      border: 1px solid rgba(200, 168, 75, 0.4);
+      color: var(--gold);
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 100px;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.8rem, 8vw, 5.5rem);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      line-height: 1;
+      margin-bottom: 8px;
+      text-shadow: 0 0 40px rgba(200, 168, 75, 0.3);
+    }
+
+    .hero-subtitle {
+      font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+    }
+
+    .hero-divider {
+      width: 80px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 0 auto 32px;
+    }
+
+    .hero-description {
+      max-width: 560px;
+      font-size: clamp(1rem, 2.5vw, 1.15rem);
+      color: var(--cream);
+      opacity: 0.85;
+      margin-bottom: 40px;
+      line-height: 1.8;
+    }
+
+    .cta-group {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--gold);
+      color: var(--dark-green);
+      font-family: Georgia, serif;
+      font-size: 0.95rem;
+      font-weight: bold;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 14px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn-primary:hover {
+      background: var(--gold-light);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: transparent;
+      color: var(--gold);
+      font-family: Georgia, serif;
+      font-size: 0.95rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 14px 28px;
+      border-radius: 8px;
+      border: 1px solid rgba(200, 168, 75, 0.5);
+      text-decoration: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--gold);
+      background: rgba(200, 168, 75, 0.08);
+    }
+
+    .coming-soon-note {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+    }
+
+    /* ── SCREENSHOTS ── */
+    .screenshots {
+      padding: 80px 24px;
+      background: var(--mid-green);
+      border-top: 1px solid rgba(200, 168, 75, 0.15);
+      border-bottom: 1px solid rgba(200, 168, 75, 0.15);
+    }
+
+    .section-label {
+      text-align: center;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--cream);
+      margin-bottom: 48px;
+    }
+
+    .phone-row {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .phone-frame {
+      flex: 0 0 auto;
+      width: 240px;
+      position: relative;
+    }
+
+    .phone-frame.featured {
+      width: 280px;
+      transform: translateY(-20px);
+    }
+
+    .phone-frame img {
+      width: 100%;
+      border-radius: 28px;
+      box-shadow:
+        0 0 0 2px rgba(200, 168, 75, 0.3),
+        0 20px 60px rgba(0, 0, 0, 0.6);
+      display: block;
+    }
+
+    .phone-caption {
+      text-align: center;
+      margin-top: 16px;
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* ── FEATURES ── */
+    .features {
+      padding: 80px 24px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .feature-card {
+      background: var(--card-brown);
+      border: 1px solid rgba(200, 168, 75, 0.2);
+      border-radius: 12px;
+      padding: 28px;
+    }
+
+    .feature-icon {
+      font-size: 2rem;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .feature-title {
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+
+    .feature-desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* ── RARITY ── */
+    .rarity-section {
+      padding: 80px 24px;
+      background: var(--mid-green);
+      border-top: 1px solid rgba(200, 168, 75, 0.15);
+      border-bottom: 1px solid rgba(200, 168, 75, 0.15);
+    }
+
+    .rarity-grid {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      max-width: 800px;
+      margin: 48px auto 0;
+    }
+
+    .rarity-pill {
+      padding: 10px 24px;
+      border-radius: 100px;
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: bold;
+      border: 2px solid;
+    }
+
+    .rarity-pill.common    { color: var(--rarity-common);    border-color: var(--rarity-common);    background: rgba(139,175,110,0.1); }
+    .rarity-pill.uncommon  { color: var(--rarity-uncommon);  border-color: var(--rarity-uncommon);  background: rgba(200,168,75,0.1); }
+    .rarity-pill.rare      { color: var(--rarity-rare);      border-color: var(--rarity-rare);      background: rgba(192,98,47,0.1); }
+    .rarity-pill.legendary { color: var(--rarity-legendary); border-color: var(--rarity-legendary); background: rgba(176,127,212,0.1); }
+
+    .rarity-desc {
+      text-align: center;
+      max-width: 600px;
+      margin: 24px auto 0;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* ── CTA BOTTOM ── */
+    .cta-bottom {
+      padding: 80px 24px;
+      text-align: center;
+    }
+
+    .cta-bottom h2 {
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 16px;
+    }
+
+    .cta-bottom p {
+      max-width: 480px;
+      margin: 0 auto 36px;
+      color: var(--text-muted);
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: rgba(0,0,0,0.4);
+      border-top: 1px solid rgba(200, 168, 75, 0.15);
+      padding: 32px 24px;
+      text-align: center;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--gold); }
+
+    .footer-copy {
+      font-size: 0.75rem;
+      color: rgba(168, 144, 112, 0.5);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .phone-frame.featured { width: 240px; transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="index.html#">IronBeak</a>
+    <ul class="nav-links">
+      <li><a href="index.html#screenshots">Screenshots</a></li>
+      <li><a href="index.html#features">Features</a></li>
+      <li><a href="privacy.html">Privacy</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge">Now Available on Android</div>
+    <h1>IronBeak</h1>
+    <p class="hero-subtitle">The Avian Chronicles</p>
+    <div class="hero-divider"></div>
+    <p class="hero-description">
+      Step into the ancient tradition of the field naturalist. Discover birds, fill your journal, and earn your place among the great ornithologists.
+    </p>
+    <div class="cta-group">
+      <a href="index.html#" class="btn-primary">
+        <!-- Google Play icon -->
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.37.2.8.22 1.2.04l13.2-7.62-2.8-2.8-11.6 10.38zm-1.18-20.5v17.48c0 .5.14.94.4 1.28L13.56 12 2.4 1.98c-.26.34-.4.78-.4 1.28zM20.4 10.1l-2.82-1.62-3.14 3.14 3.14 3.14 2.84-1.64c.8-.46.8-1.56-.02-2.02zM4.38.2C3.98.02 3.55.04 3.18.24L14.78 11.8l2.8-2.8L4.38.2z"/></svg>
+        Get it on Google Play
+      </a>
+    </div>
+    <p class="coming-soon-note">iOS coming soon</p>
+  </section>
+
+  <!-- SCREENSHOTS -->
+  <section class="screenshots" id="screenshots">
+    <p class="section-label">See it in action</p>
+    <h2 class="section-title">Your Field Journal Awaits</h2>
+    <div class="phone-row">
+      <div class="phone-frame">
+        <img src="images/screen-splash.jpg" alt="IronBeak splash screen" loading="lazy" />
+        <p class="phone-caption">Begin Your Journey</p>
+      </div>
+      <div class="phone-frame featured">
+        <img src="images/screen-journal.jpg" alt="IronBeak field journal" loading="lazy" />
+        <p class="phone-caption">Field Journal</p>
+      </div>
+      <div class="phone-frame">
+        <img src="images/screen-home.jpg" alt="IronBeak home screen" loading="lazy" />
+        <p class="phone-caption">Daily Quests</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features" id="features">
+    <p class="section-label">What awaits you</p>
+    <h2 class="section-title">Crafted for the Field Naturalist</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <span class="feature-icon">📖</span>
+        <h3 class="feature-title">Field Journal</h3>
+        <p class="feature-desc">Log every sighting and build a personal collection of beautifully illustrated bird cards. Each species you discover is yours to keep.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🧭</span>
+        <h3 class="feature-title">Daily Expeditions</h3>
+        <p class="feature-desc">Embark on expeditions to identify birds in your region. Complete daily quests, earn XP, and climb the ornithologist ranks.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">✦</span>
+        <h3 class="feature-title">Rarity System</h3>
+        <p class="feature-desc">Discover Common, Uncommon, Rare, and Legendary species. Each rarity tier brings new illustrated card art and field notes.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🎯</span>
+        <h3 class="feature-title">Mastery Levels</h3>
+        <p class="feature-desc">Log a species multiple times across different habitats and seasons to deepen your mastery and unlock new card details.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🏆</span>
+        <h3 class="feature-title">Badges & Ranks</h3>
+        <p class="feature-desc">Rise from Fledgling to Master Ornithologist. Earn badges for streaks, rare sightings, and habitat diversity.</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🌿</span>
+        <h3 class="feature-title">625+ Species</h3>
+        <p class="feature-desc">A curated catalog of North American birds across regional packs — from common backyard visitors to legendary rarities.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- RARITY -->
+  <section class="rarity-section">
+    <p class="section-label">The Collection</p>
+    <h2 class="section-title">Four Tiers of Discovery</h2>
+    <div class="rarity-grid">
+      <div class="rarity-pill common">Common</div>
+      <div class="rarity-pill uncommon">Uncommon</div>
+      <div class="rarity-pill rare">Rare</div>
+      <div class="rarity-pill legendary">Legendary</div>
+    </div>
+    <p class="rarity-desc">
+      Every bird in IronBeak is assigned a rarity tier based on real-world abundance and observability. The rarest species — like the California Condor and Ivory-billed Woodpecker — carry Legendary status and the most striking card art.
+    </p>
+  </section>
+
+  <!-- CTA BOTTOM -->
+  <section class="cta-bottom">
+    <h2>Begin Your Journey</h2>
+    <p>Download IronBeak and start filling your field journal today.</p>
+    <div class="cta-group">
+      <a href="index.html#" class="btn-primary">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.37.2.8.22 1.2.04l13.2-7.62-2.8-2.8-11.6 10.38zm-1.18-20.5v17.48c0 .5.14.94.4 1.28L13.56 12 2.4 1.98c-.26.34-.4.78-.4 1.28zM20.4 10.1l-2.82-1.62-3.14 3.14 3.14 3.14 2.84-1.64c.8-.46.8-1.56-.02-2.02zM4.38.2C3.98.02 3.55.04 3.18.24L14.78 11.8l2.8-2.8L4.38.2z"/></svg>
+        Get it on Google Play
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-links">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="mailto:support@yerbylabs.com">Contact</a>
+      <a href="../index.html">YerbyLabs</a>
+    </div>
+    <p class="footer-copy">&copy; 2026 YerbyLabs. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

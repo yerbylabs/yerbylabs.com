@@ -3,243 +3,213 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IronBeak Privacy Policy — Yerby Labs</title>
-  <meta name="description" content="Privacy policy for IronBeak: The Avian Chronicles by Yerby Labs LLC." />
-  <link rel="icon" type="image/png" href="/favicon.png" />
+  <title>Privacy Policy — IronBeak: The Avian Chronicles</title>
+  <base href="" />
+  <link rel="icon" href="images/icon.png" type="image/png" />
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --green-deep:   #0D1A0F;
-      --green-dark:   #1A3320;
-      --gold:         #C8A84B;
-      --gold-light:   #E8C96A;
-      --cream:        #F5F0E8;
-      --text-light:   #E8F0EA;
-      --text-muted:   #9BB5A0;
-      --surface:      rgba(255,255,255,0.04);
-      --border:       rgba(255,255,255,0.08);
+      --dark-green: #0d1f0d;
+      --mid-green: #1a3a1a;
+      --card-brown: #2a1a0e;
+      --gold: #c8a84b;
+      --gold-light: #e8c96a;
+      --cream: #f5ead8;
+      --text-muted: #a89070;
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: var(--green-deep);
-      color: var(--text-light);
-      line-height: 1.7;
+      background-color: var(--dark-green);
+      color: var(--cream);
+      font-family: Georgia, 'Times New Roman', serif;
+      line-height: 1.8;
     }
 
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 100;
+      background: rgba(13, 31, 13, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(200, 168, 75, 0.3);
+      padding: 0 24px;
+      height: 60px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 16px 32px;
-      background: rgba(13, 26, 15, 0.9);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(200, 168, 75, 0.15);
     }
 
     .nav-logo {
       font-size: 1.1rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
+      font-weight: bold;
+      letter-spacing: 0.15em;
       color: var(--gold);
-      text-decoration: none;
       text-transform: uppercase;
+      text-decoration: none;
     }
 
     .nav-back {
       color: var(--text-muted);
       text-decoration: none;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
       transition: color 0.2s;
     }
-    .nav-back:hover { color: var(--gold-light); }
 
-    .container {
+    .nav-back:hover { color: var(--gold); }
+
+    .content {
       max-width: 760px;
       margin: 0 auto;
-      padding: 120px 24px 80px;
+      padding: 100px 24px 80px;
     }
 
     .page-label {
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.25em;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--gold);
       margin-bottom: 12px;
     }
 
     h1 {
-      font-size: clamp(1.8rem, 4vw, 2.6rem);
-      font-weight: 800;
-      color: var(--cream);
-      line-height: 1.15;
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold-light);
       margin-bottom: 8px;
     }
 
-    .meta {
+    .effective-date {
       font-size: 0.85rem;
       color: var(--text-muted);
       margin-bottom: 48px;
     }
 
-    h2 {
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: var(--cream);
-      margin: 40px 0 12px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid var(--border);
+    .divider {
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      margin-bottom: 48px;
     }
 
-    h3 {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: var(--gold-light);
-      margin: 24px 0 8px;
+    h2 {
+      font-size: 1.1rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-top: 40px;
+      margin-bottom: 14px;
     }
 
     p {
-      color: var(--text-muted);
+      color: var(--cream);
+      opacity: 0.85;
       margin-bottom: 16px;
-      font-size: 0.97rem;
+      font-size: 0.95rem;
     }
 
     ul {
-      list-style: none;
-      margin: 0 0 16px 0;
-      padding: 0;
+      margin: 0 0 16px 20px;
+      color: var(--cream);
+      opacity: 0.85;
+      font-size: 0.95rem;
     }
 
-    ul li {
-      color: var(--text-muted);
-      font-size: 0.97rem;
-      padding: 4px 0 4px 20px;
-      position: relative;
-    }
+    ul li { margin-bottom: 8px; }
 
-    ul li::before {
-      content: "—";
-      position: absolute;
-      left: 0;
-      color: var(--gold);
-      opacity: 0.6;
-    }
-
-    strong { color: var(--text-light); }
-
-    .highlight-box {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-left: 3px solid var(--gold);
-      border-radius: 8px;
-      padding: 16px 20px;
-      margin: 24px 0;
-    }
-
-    .highlight-box p {
-      margin-bottom: 0;
-      font-size: 0.93rem;
-    }
+    a { color: var(--gold); text-decoration: underline; }
+    a:hover { color: var(--gold-light); }
 
     footer {
-      margin-top: 80px;
-      padding-top: 32px;
-      border-top: 1px solid var(--border);
+      background: rgba(0,0,0,0.4);
+      border-top: 1px solid rgba(200, 168, 75, 0.15);
+      padding: 24px;
       text-align: center;
-    }
-
-    footer p { font-size: 0.82rem; }
-
-    footer a {
-      color: var(--text-muted);
-      text-decoration: none;
-    }
-    footer a:hover { color: var(--gold-light); }
-
-    @media (max-width: 600px) {
-      nav { padding: 14px 20px; }
-      .container { padding: 100px 20px 60px; }
+      font-size: 0.75rem;
+      color: rgba(168, 144, 112, 0.5);
     }
   </style>
 </head>
 <body>
 
   <nav>
-    <a class="nav-logo" href="/">Yerby Labs</a>
-    <a class="nav-back" href="/">← Back</a>
+    <a class="nav-logo" href="index.html">IronBeak</a>
+    <a class="nav-back" href="index.html">← Back</a>
   </nav>
 
-  <div class="container">
-
-    <p class="page-label">IronBeak: The Avian Chronicles</p>
+  <div class="content">
+    <p class="page-label">Legal</p>
     <h1>Privacy Policy</h1>
-    <p class="meta">Last updated: March 27, 2026 &nbsp;·&nbsp; Developer: Yerby Labs LLC &nbsp;·&nbsp; <a href="mailto:yerbylabs@gmail.com" style="color: var(--gold);">yerbylabs@gmail.com</a></p>
+    <p class="effective-date">Effective date: March 13, 2026</p>
+    <div class="divider"></div>
 
-    <div class="highlight-box">
-      <p><strong>Short version:</strong> Almost everything you do in IronBeak stays on your device. We don't collect personal data, don't run ads, and don't sell your information.</p>
-    </div>
-
-    <h2>Overview</h2>
-    <p>IronBeak: The Avian Chronicles is a bird journaling app. We are committed to protecting your privacy. This policy explains what data the app collects, how it is used, and your rights as a user.</p>
-
-    <h2>Data We Collect</h2>
-
-    <h3>Data stored locally on your device</h3>
-    <p>All core app data — your sightings, journal entries, species list, Haunts, badges, XP, streaks, and settings — is stored <strong>only on your device</strong> using local storage. This data is never transmitted to our servers unless you explicitly use a feature that requires it (such as Flock social features).</p>
-
-    <h3>Data collected when using Flock (optional social features)</h3>
-    <p>If you choose to use the Flock feature to connect with other birders, the following data is stored on our servers:</p>
-    <ul>
-      <li>A display name you choose</li>
-      <li>Your life list species count and recent sighting activity (not the full content of your journal)</li>
-      <li>Your device's push notification token (if you grant notification permission)</li>
-    </ul>
-
-    <h3>Location data</h3>
-    <p>If you choose to use the "Use My Location" feature when logging a sighting, the app requests your device location to determine your county and state. <strong>Your precise GPS coordinates are never stored.</strong> Only the county and state name are saved with the sighting. Location data is never transmitted to our servers.</p>
-
-    <h3>Crash and error reporting</h3>
-    <p>The app uses Sentry to collect anonymous crash reports. These reports include device type, OS version, and a stack trace of the error. They do not include your personal data or sighting content.</p>
-
-    <h2>Data We Do Not Collect</h2>
-    <ul>
-      <li>We do not collect your name, email address, or any identifying information unless you create a Flock account.</li>
-      <li>We do not sell your data to third parties.</li>
-      <li>We do not use your data for advertising.</li>
-      <li>We do not track your location in the background.</li>
-      <li>We do not access your contacts, camera roll, or microphone unless you explicitly grant permission for a specific in-app action.</li>
-    </ul>
-
-    <h2>In-App Purchases</h2>
-    <p>IronBeak offers optional in-app purchases (Haunts unlock, species data packs). Purchases are processed by Google Play. We do not store your payment information.</p>
-
-    <h2>Children's Privacy</h2>
-    <p>IronBeak is not directed at children under the age of 13. We do not knowingly collect personal information from children under 13. If you believe a child under 13 has provided us with personal information, please contact us at <a href="mailto:yerbylabs@gmail.com" style="color: var(--gold);">yerbylabs@gmail.com</a> and we will delete it.</p>
-
-    <h2>Data Retention and Deletion</h2>
-    <p>Your local data remains on your device until you uninstall the app or use the "Reset Everything" option in Settings. If you have a Flock account, you may request deletion of your server-side data by contacting us at <a href="mailto:yerbylabs@gmail.com" style="color: var(--gold);">yerbylabs@gmail.com</a>.</p>
-
-    <h2>Changes to This Policy</h2>
-    <p>We may update this privacy policy from time to time. We will notify you of significant changes via an in-app notice. Continued use of the app after changes constitutes acceptance of the updated policy.</p>
-
-    <h2>Contact</h2>
     <p>
-      Yerby Labs LLC<br/>
-      <a href="mailto:yerbylabs@gmail.com" style="color: var(--gold);">yerbylabs@gmail.com</a><br/>
-      <a href="https://yerbylabs.com" style="color: var(--gold);">https://yerbylabs.com</a>
+      YerbyLabs ("we," "us," or "our") operates the IronBeak: The Avian Chronicles mobile application (the "App"). This Privacy Policy explains what information we collect, how we use it, and your rights regarding that information. By using the App, you agree to the practices described in this policy.
     </p>
 
-    <footer>
-      <p><a href="/">← Back to Yerby Labs</a></p>
-      <p style="margin-top: 12px; opacity: 0.4;">© 2026 Yerby Labs LLC. All rights reserved.</p>
-    </footer>
+    <h2>1. Information We Collect</h2>
+    <p>We collect only the information necessary to provide the App's core functionality:</p>
+    <ul>
+      <li><strong>Bird sighting data</strong> — species name, date, logging method (manual, photo, or audio), and any optional notes you enter.</li>
+      <li><strong>Region</strong> — your selected home region (e.g., "Midwest" or "Pacific NW"). We do not collect precise GPS coordinates. If you grant location permission in a future update, we will derive a region-level string and immediately discard the raw coordinates.</li>
+      <li><strong>Audio recordings</strong> — if you use the audio logging feature, recordings are stored locally on your device and are not transmitted to our servers.</li>
+      <li><strong>Photos</strong> — if you attach a photo to a sighting, it is stored locally on your device and is not transmitted to our servers.</li>
+      <li><strong>App usage data</strong> — XP, streak counts, badge progress, and mastery levels, stored locally on your device.</li>
+    </ul>
 
+    <h2>2. Information We Do Not Collect</h2>
+    <ul>
+      <li>We do not collect your name, email address, or any account credentials unless you explicitly create an account in a future version of the App.</li>
+      <li>We do not collect precise GPS location data.</li>
+      <li>We do not sell, rent, or share your personal data with third parties for marketing purposes.</li>
+      <li>We do not use advertising SDKs or third-party analytics trackers.</li>
+    </ul>
+
+    <h2>3. How We Use Your Information</h2>
+    <p>All data collected is used solely to:</p>
+    <ul>
+      <li>Display your field journal, sighting history, and progress within the App.</li>
+      <li>Calculate XP, streaks, and badge achievements.</li>
+      <li>Provide region-appropriate bird species for expeditions.</li>
+    </ul>
+
+    <h2>4. Data Storage</h2>
+    <p>
+      All sighting data, photos, and audio recordings are stored locally on your device using the device's secure storage. We do not operate a cloud database for personal sighting data at this time. If cloud sync is introduced in a future version, this policy will be updated and you will be notified before any data is transmitted.
+    </p>
+
+    <h2>5. Permissions</h2>
+    <p>The App may request the following device permissions:</p>
+    <ul>
+      <li><strong>Microphone</strong> — used only when you choose to log a sighting via audio. Recordings are stored locally and not transmitted.</li>
+      <li><strong>Camera</strong> — used only when you choose to log a sighting via photo. Photos are stored locally and not transmitted.</li>
+      <li><strong>Notifications</strong> — used to deliver optional daily quest reminders. You can disable notifications at any time in your device settings.</li>
+    </ul>
+    <p>You may deny any permission; doing so will disable the associated feature but will not affect other App functionality.</p>
+
+    <h2>6. Children's Privacy</h2>
+    <p>
+      The App is not directed to children under the age of 13. We do not knowingly collect personal information from children under 13. If you believe a child has provided us with personal information, please contact us at the address below and we will promptly delete it.
+    </p>
+
+    <h2>7. Changes to This Policy</h2>
+    <p>
+      We may update this Privacy Policy from time to time. When we do, we will revise the effective date at the top of this page. We encourage you to review this policy periodically. Continued use of the App after changes constitutes acceptance of the updated policy.
+    </p>
+
+    <h2>8. Contact Us</h2>
+    <p>
+      If you have questions or concerns about this Privacy Policy, please contact us at:<br />
+      <a href="mailto:support@yerbylabs.com">support@yerbylabs.com</a>
+    </p>
   </div>
+
+  <footer>
+    &copy; 2026 YerbyLabs. All rights reserved.
+  </footer>
 
 </body>
 </html>
