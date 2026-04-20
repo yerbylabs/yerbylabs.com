@@ -241,7 +241,7 @@
       display: flex;
       gap: 24px;
       justify-content: center;
-      align-items: flex-end;
+      align-items: center;
       overflow: hidden;
     }
 
@@ -250,11 +250,6 @@
       width: 220px;
       position: relative;
       transition: opacity 0.3s ease, transform 0.3s ease;
-    }
-
-    .phone-frame.featured {
-      width: 250px;
-      transform: translateY(-20px);
     }
 
     .phone-frame.hidden {
@@ -514,17 +509,25 @@
           <img src="images/screen-splash.jpg" alt="IronBeak splash screen" loading="lazy" />
           <p class="phone-caption">Begin Your Journey</p>
         </div>
-        <div class="phone-frame featured" data-index="1">
-          <img src="images/screen-journal.jpg" alt="IronBeak field journal" loading="lazy" />
-          <p class="phone-caption">Field Journal</p>
+        <div class="phone-frame" data-index="1">
+          <img src="images/screen-home.jpg" alt="IronBeak home screen" loading="lazy" />
+          <p class="phone-caption">Home</p>
         </div>
         <div class="phone-frame" data-index="2">
           <img src="images/screen-witters.jpg" alt="Ask Witters AI bird identification" loading="lazy" />
           <p class="phone-caption">Ask Witters</p>
         </div>
         <div class="phone-frame" data-index="3">
-          <img src="images/screen-home.jpg" alt="IronBeak home screen" loading="lazy" />
-          <p class="phone-caption">Daily Quests</p>
+          <img src="images/screen-expedition.jpg" alt="Expedition log sighting" loading="lazy" />
+          <p class="phone-caption">Expedition Log</p>
+        </div>
+        <div class="phone-frame" data-index="4">
+          <img src="images/screen-badges.jpg" alt="Badges and ranks" loading="lazy" />
+          <p class="phone-caption">Badges &amp; Ranks</p>
+        </div>
+        <div class="phone-frame" data-index="5">
+          <img src="images/screen-journal.jpg" alt="IronBeak field journal" loading="lazy" />
+          <p class="phone-caption">Field Journal</p>
         </div>
       </div>
       <button class="carousel-btn next" id="carouselNext" aria-label="Next">&#8250;</button>
@@ -541,8 +544,8 @@
       var VISIBLE = 3;
       var current = 0; // index of first visible frame
 
-      // Build dots
-      var totalSteps = frames.length - VISIBLE + 1; // 2 steps for 4 frames
+      // Build dots — one dot per step (4 steps for 6 frames, 3 visible)
+      var totalSteps = frames.length - VISIBLE + 1;
       for (var i = 0; i < totalSteps; i++) {
         var dot = document.createElement('span');
         dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
