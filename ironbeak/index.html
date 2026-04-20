@@ -230,25 +230,35 @@
       margin-bottom: 48px;
     }
 
+    /* Carousel wrapper */
+    .carousel-wrap {
+      position: relative;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
     .phone-row {
       display: flex;
-      gap: 20px;
+      gap: 24px;
       justify-content: center;
       align-items: flex-end;
-      flex-wrap: wrap;
-      max-width: 1200px;
-      margin: 0 auto;
+      overflow: hidden;
     }
 
     .phone-frame {
       flex: 0 0 auto;
-      width: 175px;
+      width: 220px;
       position: relative;
+      transition: opacity 0.3s ease, transform 0.3s ease;
     }
 
     .phone-frame.featured {
-      width: 200px;
+      width: 250px;
       transform: translateY(-20px);
+    }
+
+    .phone-frame.hidden {
+      display: none;
     }
 
     .phone-frame img {
@@ -268,6 +278,47 @@
       text-transform: uppercase;
       color: var(--text-muted);
     }
+
+    /* Arrow buttons */
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(13, 26, 15, 0.85);
+      border: 1px solid rgba(200, 168, 75, 0.4);
+      color: var(--gold);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      transition: background 0.2s;
+    }
+    .carousel-btn:hover { background: rgba(200, 168, 75, 0.15); }
+    .carousel-btn.prev { left: -20px; }
+    .carousel-btn.next { right: -20px; }
+    .carousel-btn:disabled { opacity: 0.25; cursor: default; }
+
+    /* Dots */
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 28px;
+    }
+    .carousel-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(200, 168, 75, 0.25);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .carousel-dot.active { background: var(--gold); }
 
     /* ── FEATURES ── */
     .features {
@@ -456,25 +507,76 @@
   <section class="screenshots" id="screenshots">
     <p class="section-label">See it in action</p>
     <h2 class="section-title">Your Field Journal Awaits</h2>
-    <div class="phone-row">
-      <div class="phone-frame">
-        <img src="images/screen-splash.jpg" alt="IronBeak splash screen" loading="lazy" />
-        <p class="phone-caption">Begin Your Journey</p>
+    <div class="carousel-wrap">
+      <button class="carousel-btn prev" id="carouselPrev" aria-label="Previous">&#8249;</button>
+      <div class="phone-row" id="phoneRow">
+        <div class="phone-frame" data-index="0">
+          <img src="images/screen-splash.jpg" alt="IronBeak splash screen" loading="lazy" />
+          <p class="phone-caption">Begin Your Journey</p>
+        </div>
+        <div class="phone-frame featured" data-index="1">
+          <img src="images/screen-journal.jpg" alt="IronBeak field journal" loading="lazy" />
+          <p class="phone-caption">Field Journal</p>
+        </div>
+        <div class="phone-frame" data-index="2">
+          <img src="images/screen-witters.jpg" alt="Ask Witters AI bird identification" loading="lazy" />
+          <p class="phone-caption">Ask Witters</p>
+        </div>
+        <div class="phone-frame" data-index="3">
+          <img src="images/screen-home.jpg" alt="IronBeak home screen" loading="lazy" />
+          <p class="phone-caption">Daily Quests</p>
+        </div>
       </div>
-      <div class="phone-frame featured">
-        <img src="images/screen-journal.jpg" alt="IronBeak field journal" loading="lazy" />
-        <p class="phone-caption">Field Journal</p>
-      </div>
-      <div class="phone-frame">
-        <img src="images/screen-witters.jpg" alt="Ask Witters AI bird identification" loading="lazy" />
-        <p class="phone-caption">Ask Witters</p>
-      </div>
-      <div class="phone-frame">
-        <img src="images/screen-home.jpg" alt="IronBeak home screen" loading="lazy" />
-        <p class="phone-caption">Daily Quests</p>
-      </div>
+      <button class="carousel-btn next" id="carouselNext" aria-label="Next">&#8250;</button>
+      <div class="carousel-dots" id="carouselDots"></div>
     </div>
   </section>
+
+  <script>
+    (function() {
+      var frames = Array.from(document.querySelectorAll('#phoneRow .phone-frame'));
+      var prevBtn = document.getElementById('carouselPrev');
+      var nextBtn = document.getElementById('carouselNext');
+      var dotsEl  = document.getElementById('carouselDots');
+      var VISIBLE = 3;
+      var current = 0; // index of first visible frame
+
+      // Build dots
+      var totalSteps = frames.length - VISIBLE + 1; // 2 steps for 4 frames
+      for (var i = 0; i < totalSteps; i++) {
+        var dot = document.createElement('span');
+        dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('data-step', i);
+        dot.addEventListener('click', function() { goTo(+this.getAttribute('data-step')); });
+        dotsEl.appendChild(dot);
+      }
+
+      function render() {
+        frames.forEach(function(f, i) {
+          if (i >= current && i < current + VISIBLE) {
+            f.classList.remove('hidden');
+          } else {
+            f.classList.add('hidden');
+          }
+        });
+        prevBtn.disabled = current === 0;
+        nextBtn.disabled = current >= frames.length - VISIBLE;
+        Array.from(dotsEl.querySelectorAll('.carousel-dot')).forEach(function(d, i) {
+          d.classList.toggle('active', i === current);
+        });
+      }
+
+      function goTo(step) {
+        current = Math.max(0, Math.min(step, frames.length - VISIBLE));
+        render();
+      }
+
+      prevBtn.addEventListener('click', function() { goTo(current - 1); });
+      nextBtn.addEventListener('click', function() { goTo(current + 1); });
+
+      render();
+    })();
+  </script>
 
   <!-- FEATURES -->
   <section class="features" id="features">
