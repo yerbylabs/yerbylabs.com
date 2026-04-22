@@ -6,7 +6,7 @@
   <title>IronBeak: The Avian Chronicles</title>
   <meta name="description" content="Step into the ancient tradition of the field naturalist. Discover birds, fill your journal, and earn your place among the great ornithologists." />
   <base href="" />
-  <link rel="icon" href="ironbeak/images/icon.png" type="image/png" />
+  <link rel="icon" href="images/icon.png" type="image/png" />
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -230,25 +230,30 @@
       margin-bottom: 48px;
     }
 
+    /* Carousel wrapper */
+    .carousel-wrap {
+      position: relative;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
     .phone-row {
       display: flex;
       gap: 24px;
       justify-content: center;
-      align-items: flex-end;
-      flex-wrap: wrap;
-      max-width: 1000px;
-      margin: 0 auto;
+      align-items: center;
+      overflow: hidden;
     }
 
     .phone-frame {
       flex: 0 0 auto;
-      width: 240px;
+      width: 220px;
       position: relative;
+      transition: opacity 0.3s ease, transform 0.3s ease;
     }
 
-    .phone-frame.featured {
-      width: 280px;
-      transform: translateY(-20px);
+    .phone-frame.hidden {
+      display: none;
     }
 
     .phone-frame img {
@@ -268,6 +273,60 @@
       text-transform: uppercase;
       color: var(--text-muted);
     }
+
+    /* On mobile: 1 frame at a time, centered and full-width-ish */
+    @media (max-width: 640px) {
+      .carousel-wrap {
+        max-width: 320px;
+      }
+      .phone-frame {
+        width: 260px;
+      }
+      .phone-row {
+        gap: 0;
+      }
+    }
+
+    /* Arrow buttons */
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(13, 26, 15, 0.85);
+      border: 1px solid rgba(200, 168, 75, 0.4);
+      color: var(--gold);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      transition: background 0.2s;
+    }
+    .carousel-btn:hover { background: rgba(200, 168, 75, 0.15); }
+    .carousel-btn.prev { left: -24px; }
+    .carousel-btn.next { right: -24px; }
+    .carousel-btn:disabled { opacity: 0.25; cursor: default; }
+
+    /* Dots */
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 28px;
+    }
+    .carousel-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(200, 168, 75, 0.25);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .carousel-dot.active { background: var(--gold); }
 
     /* ── FEATURES ── */
     .features {
@@ -406,9 +465,18 @@
     }
 
     /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .phone-frame { width: 150px; }
+      .phone-frame.featured { width: 170px; }
+    }
+
     @media (max-width: 600px) {
       .nav-links { display: none; }
-      .phone-frame.featured { width: 240px; transform: none; }
+      .phone-row { gap: 12px; }
+      .phone-frame { width: 130px; }
+      .phone-frame.featured { width: 150px; transform: none; }
+      .footer-links { gap: 12px 16px; }
+      .footer-links a { font-size: 0.7rem; letter-spacing: 0.05em; }
     }
   </style>
 </head>
@@ -416,11 +484,11 @@
 
   <!-- NAV -->
   <nav>
-    <a class="nav-logo" href="ironbeak/index.html#">IronBeak</a>
+    <a class="nav-logo" href="index.html#">IronBeak</a>
     <ul class="nav-links">
-      <li><a href="ironbeak/index.html#screenshots">Screenshots</a></li>
-      <li><a href="ironbeak/index.html#features">Features</a></li>
-      <li><a href="ironbeak/privacy.html">Privacy</a></li>
+      <li><a href="index.html#screenshots">Screenshots</a></li>
+      <li><a href="index.html#features">Features</a></li>
+      <li><a href="privacy.html">Privacy</a></li>
     </ul>
   </nav>
 
@@ -434,7 +502,7 @@
       Step into the ancient tradition of the field naturalist. Discover birds, fill your journal, and earn your place among the great ornithologists.
     </p>
     <div class="cta-group">
-      <a href="ironbeak/index.html#" class="btn-primary">
+      <a href="index.html#" class="btn-primary">
         <!-- Google Play icon -->
         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.37.2.8.22 1.2.04l13.2-7.62-2.8-2.8-11.6 10.38zm-1.18-20.5v17.48c0 .5.14.94.4 1.28L13.56 12 2.4 1.98c-.26.34-.4.78-.4 1.28zM20.4 10.1l-2.82-1.62-3.14 3.14 3.14 3.14 2.84-1.64c.8-.46.8-1.56-.02-2.02zM4.38.2C3.98.02 3.55.04 3.18.24L14.78 11.8l2.8-2.8L4.38.2z"/></svg>
         Get it on Google Play
@@ -447,21 +515,102 @@
   <section class="screenshots" id="screenshots">
     <p class="section-label">See it in action</p>
     <h2 class="section-title">Your Field Journal Awaits</h2>
-    <div class="phone-row">
-      <div class="phone-frame">
-        <img src="ironbeak/images/screen-splash.jpg" alt="IronBeak splash screen" loading="lazy" />
-        <p class="phone-caption">Begin Your Journey</p>
+    <div class="carousel-wrap">
+      <button class="carousel-btn prev" id="carouselPrev" aria-label="Previous">&#8249;</button>
+      <div class="phone-row" id="phoneRow">
+        <div class="phone-frame" data-index="0">
+          <img src="images/screen-splash.jpg" alt="IronBeak splash screen" loading="lazy" />
+          <p class="phone-caption">Begin Your Journey</p>
+        </div>
+        <div class="phone-frame" data-index="1">
+          <img src="images/screen-home.jpg" alt="IronBeak home screen" loading="lazy" />
+          <p class="phone-caption">Home</p>
+        </div>
+        <div class="phone-frame" data-index="2">
+          <img src="images/screen-witters.jpg" alt="Ask Witters AI bird identification" loading="lazy" />
+          <p class="phone-caption">Ask Witters</p>
+        </div>
+        <div class="phone-frame" data-index="3">
+          <img src="images/screen-expedition.jpg" alt="Expedition log sighting" loading="lazy" />
+          <p class="phone-caption">Expedition Log</p>
+        </div>
+        <div class="phone-frame" data-index="4">
+          <img src="images/screen-badges.jpg" alt="Badges and ranks" loading="lazy" />
+          <p class="phone-caption">Badges &amp; Ranks</p>
+        </div>
+        <div class="phone-frame" data-index="5">
+          <img src="images/screen-journal.jpg" alt="IronBeak field journal" loading="lazy" />
+          <p class="phone-caption">Field Journal</p>
+        </div>
       </div>
-      <div class="phone-frame featured">
-        <img src="ironbeak/images/screen-journal.jpg" alt="IronBeak field journal" loading="lazy" />
-        <p class="phone-caption">Field Journal</p>
-      </div>
-      <div class="phone-frame">
-        <img src="ironbeak/images/screen-home.jpg" alt="IronBeak home screen" loading="lazy" />
-        <p class="phone-caption">Daily Quests</p>
-      </div>
+      <button class="carousel-btn next" id="carouselNext" aria-label="Next">&#8250;</button>
+      <div class="carousel-dots" id="carouselDots"></div>
     </div>
   </section>
+
+  <script>
+    (function() {
+      var frames = Array.from(document.querySelectorAll('#phoneRow .phone-frame'));
+      var prevBtn = document.getElementById('carouselPrev');
+      var nextBtn = document.getElementById('carouselNext');
+      var dotsEl  = document.getElementById('carouselDots');
+      var current = 0;
+      var VISIBLE = getVisible();
+
+      function getVisible() {
+        return window.innerWidth <= 640 ? 1 : 3;
+      }
+
+      function buildDots() {
+        dotsEl.innerHTML = '';
+        var totalSteps = frames.length - VISIBLE + 1;
+        for (var i = 0; i < totalSteps; i++) {
+          var dot = document.createElement('span');
+          dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+          dot.setAttribute('data-step', i);
+          dot.addEventListener('click', function() { goTo(+this.getAttribute('data-step')); });
+          dotsEl.appendChild(dot);
+        }
+      }
+
+      function render() {
+        frames.forEach(function(f, i) {
+          if (i >= current && i < current + VISIBLE) {
+            f.classList.remove('hidden');
+          } else {
+            f.classList.add('hidden');
+          }
+        });
+        prevBtn.disabled = current === 0;
+        nextBtn.disabled = current >= frames.length - VISIBLE;
+        Array.from(dotsEl.querySelectorAll('.carousel-dot')).forEach(function(d, i) {
+          d.classList.toggle('active', i === current);
+        });
+      }
+
+      function goTo(step) {
+        current = Math.max(0, Math.min(step, frames.length - VISIBLE));
+        render();
+      }
+
+      prevBtn.addEventListener('click', function() { goTo(current - 1); });
+      nextBtn.addEventListener('click', function() { goTo(current + 1); });
+
+      // Handle resize (e.g. orientation change)
+      window.addEventListener('resize', function() {
+        var newVisible = getVisible();
+        if (newVisible !== VISIBLE) {
+          VISIBLE = newVisible;
+          current = 0;
+          buildDots();
+          render();
+        }
+      });
+
+      buildDots();
+      render();
+    })();
+  </script>
 
   <!-- FEATURES -->
   <section class="features" id="features">
@@ -471,7 +620,7 @@
       <div class="feature-card">
         <span class="feature-icon">📖</span>
         <h3 class="feature-title">Field Journal</h3>
-        <p class="feature-desc">Log every sighting and build a personal collection of beautifully illustrated bird cards. Each species you discover is yours to keep.</p>
+        <p class="feature-desc">Your personal life list, built in the field. Every confirmed sighting is recorded with species, date, habitat, and notes — a permanent record that grows with you. Illustrated cards bring each entry to life.</p>
       </div>
       <div class="feature-card">
         <span class="feature-icon">🧭</span>
@@ -479,23 +628,23 @@
         <p class="feature-desc">Embark on expeditions to identify birds in your region. Complete daily quests, earn XP, and climb the ornithologist ranks.</p>
       </div>
       <div class="feature-card">
-        <span class="feature-icon">✦</span>
-        <h3 class="feature-title">Rarity System</h3>
-        <p class="feature-desc">Discover Common, Uncommon, Rare, and Legendary species. Each rarity tier brings new illustrated card art and field notes.</p>
+        <span class="feature-icon">🦉</span>
+        <h3 class="feature-title">Ask Witters</h3>
+        <p class="feature-desc">Not sure what you're looking at? Describe the bird — size, color, behavior, habitat — and Witters, IronBeak's resident field ornithologist, will narrow it down for you. Powered by AI, grounded in real field craft.</p>
       </div>
       <div class="feature-card">
         <span class="feature-icon">🎯</span>
         <h3 class="feature-title">Mastery Levels</h3>
-        <p class="feature-desc">Log a species multiple times across different habitats and seasons to deepen your mastery and unlock new card details.</p>
+        <p class="feature-desc">Track how well you know each species. Log more sightings to climb from First Sighting to Habitat Specialist — earning bonus XP each time you level up. Reach Level 5 and unlock a Mastery Seal badge.</p>
       </div>
       <div class="feature-card">
         <span class="feature-icon">🏆</span>
-        <h3 class="feature-title">Badges & Ranks</h3>
-        <p class="feature-desc">Rise from Fledgling to Master Ornithologist. Earn badges for streaks, rare sightings, and habitat diversity.</p>
+        <h3 class="feature-title">Badges &amp; Ranks</h3>
+        <p class="feature-desc">Rise from Nestling to Master Ornithologist as you earn XP in the field. Collect badges across six categories — from Quest Mastery and Species Collection to Rarity Hunter and beyond.</p>
       </div>
       <div class="feature-card">
-        <span class="feature-icon">🌿</span>
-        <h3 class="feature-title">625+ Species</h3>
+        <span class="feature-icon">🐦</span>
+        <h3 class="feature-title">636 Species</h3>
         <p class="feature-desc">A curated catalog of North American birds across regional packs — from common backyard visitors to legendary rarities.</p>
       </div>
     </div>
@@ -512,7 +661,7 @@
       <div class="rarity-pill legendary">Legendary</div>
     </div>
     <p class="rarity-desc">
-      Every bird in IronBeak is assigned a rarity tier based on real-world abundance and observability. The rarest species — like the California Condor and Ivory-billed Woodpecker — carry Legendary status and the most striking card art.
+      Every bird in IronBeak is assigned a rarity tier based on real-world abundance and observability. The rarest species — like the California Condor and Whooping Crane — carry Legendary status and the most striking card art.
     </p>
   </section>
 
@@ -521,7 +670,7 @@
     <h2>Begin Your Journey</h2>
     <p>Download IronBeak and start filling your field journal today.</p>
     <div class="cta-group">
-      <a href="ironbeak/index.html#" class="btn-primary">
+      <a href="index.html#" class="btn-primary">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.37.2.8.22 1.2.04l13.2-7.62-2.8-2.8-11.6 10.38zm-1.18-20.5v17.48c0 .5.14.94.4 1.28L13.56 12 2.4 1.98c-.26.34-.4.78-.4 1.28zM20.4 10.1l-2.82-1.62-3.14 3.14 3.14 3.14 2.84-1.64c.8-.46.8-1.56-.02-2.02zM4.38.2C3.98.02 3.55.04 3.18.24L14.78 11.8l2.8-2.8L4.38.2z"/></svg>
         Get it on Google Play
       </a>
@@ -531,9 +680,10 @@
   <!-- FOOTER -->
   <footer>
     <div class="footer-links">
-      <a href="ironbeak/privacy.html">Privacy Policy</a>
-      <a href="mailto:support@yerbylabs.com">Contact</a>
-      <a href="index.html">YerbyLabs</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Service</a>
+      <a href="mailto:admin@yerbylabs.com">Contact</a>
+      <a href="../index.html">YerbyLabs</a>
     </div>
     <p class="footer-copy">&copy; 2026 YerbyLabs. All rights reserved.</p>
   </footer>
