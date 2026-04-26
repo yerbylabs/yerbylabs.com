@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Delete My Data — IronBeak: The Avian Chronicles</title>
+  <base href="" />
+  <link rel="icon" href="images/icon.png" type="image/png" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --dark-green: #0d1f0d;
+      --gold: #c8a84b;
+      --gold-light: #e8c96a;
+      --cream: #f5ead8;
+      --text-muted: #a89070;
+    }
+
+    body {
+      background-color: var(--dark-green);
+      color: var(--cream);
+      font-family: Georgia, 'Times New Roman', serif;
+      line-height: 1.8;
+    }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(13, 31, 13, 0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(200, 168, 75, 0.3);
+      padding: 0 24px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-size: 1.1rem;
+      font-weight: bold;
+      letter-spacing: 0.15em;
+      color: var(--gold);
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+
+    .nav-back {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .nav-back:hover { color: var(--gold); }
+
+    .content {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 100px 24px 80px;
+    }
+
+    .page-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 24px;
+    }
+
+    .divider {
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      margin-bottom: 40px;
+    }
+
+    h2 {
+      font-size: 1.1rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-top: 36px;
+      margin-bottom: 12px;
+    }
+
+    p {
+      color: var(--cream);
+      opacity: 0.85;
+      margin-bottom: 16px;
+      font-size: 0.95rem;
+    }
+
+    ul {
+      margin: 0 0 16px 20px;
+      color: var(--cream);
+      opacity: 0.85;
+      font-size: 0.95rem;
+    }
+
+    ul li { margin-bottom: 8px; }
+
+    .email-button {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 14px 28px;
+      background: transparent;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-family: Georgia, serif;
+      font-size: 0.95rem;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .email-button:hover {
+      background: rgba(200, 168, 75, 0.1);
+      color: var(--gold-light);
+    }
+
+    a { color: var(--gold); text-decoration: underline; }
+    a:hover { color: var(--gold-light); }
+
+    footer {
+      background: rgba(0,0,0,0.4);
+      border-top: 1px solid rgba(200, 168, 75, 0.15);
+      padding: 24px;
+      text-align: center;
+      font-size: 0.75rem;
+      color: rgba(168, 144, 112, 0.5);
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="index.html">IronBeak</a>
+    <a class="nav-back" href="index.html">← Back</a>
+  </nav>
+
+  <div class="content">
+    <p class="page-label">Privacy</p>
+    <h1>Delete My Data</h1>
+    <div class="divider"></div>
+
+    <p>
+      You have the right to request deletion of your account and all associated data from IronBeak: The Avian Chronicles. We will process your request within 30 days.
+    </p>
+
+    <h2>What will be deleted</h2>
+    <ul>
+      <li>Your account and profile (display name, email address)</li>
+      <li>All bird sighting records and journal entries stored on our servers</li>
+      <li>Your game progress, XP, achievements, and streak data stored on our servers</li>
+      <li>Any other personal data associated with your account</li>
+    </ul>
+
+    <h2>What will not be deleted</h2>
+    <ul>
+      <li>Data stored locally on your device (you can delete this by uninstalling the app)</li>
+      <li>Anonymized, aggregated data that cannot be linked back to you</li>
+      <li>Records required for legal compliance or fraud prevention</li>
+    </ul>
+
+    <h2>How to request deletion</h2>
+    <p>
+      Send an email to <a href="mailto:admin@yerbylabs.com">admin@yerbylabs.com</a> with the subject line <strong>"Data Deletion Request"</strong> and include the email address associated with your IronBeak account. We will confirm receipt and complete the deletion within 30 days.
+    </p>
+
+    <a class="email-button" href="mailto:admin@yerbylabs.com?subject=Data%20Deletion%20Request&body=Please%20delete%20my%20IronBeak%20account%20and%20all%20associated%20data.%0A%0AAccount%20email%3A%20">
+      Request Data Deletion
+    </a>
+
+    <h2>Questions</h2>
+    <p>
+      For any questions about your data or this process, contact us at <a href="mailto:admin@yerbylabs.com">admin@yerbylabs.com</a> or review our <a href="privacy.html">Privacy Policy</a>.
+    </p>
+  </div>
+
+  <footer>
+    &copy; 2026 YerbyLabs. All rights reserved.
+  </footer>
+
+</body>
+</html>
